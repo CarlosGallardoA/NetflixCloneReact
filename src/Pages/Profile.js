@@ -15,15 +15,15 @@ const Profile = () => {
         <div className={classes.details}>
           <div className={classes.plans}>
             <Typography variant="h6">Email usuario</Typography>
-            <Typography
-              className={classes.plansText}
-              variant="h5"
-              gutterBottom
-            ></Typography>
+            <Typography className={classes.plansText} variant="h5" gutterBottom>
+              Plans
+            </Typography>
             <Plans cost={24.99}>Netflix Basic</Plans>
             <Plans cost={34.99}>Netflix Standard</Plans>
-            <Plans cost={44.99}>Netflix Premium</Plans>
-            <NetflixButton>Sign Out</NetflixButton>
+            <Plans wide="medium" color="gray" cost={44.99}>
+              Netflix Premium
+            </Plans>
+            <NetflixButton wide="fullWidth">Sign Out</NetflixButton>
           </div>
         </div>
       </div>

@@ -6,7 +6,7 @@ import Profile from "./Pages/Profile";
 import Paypal from "./Pages/Paypal";
 import Login from "./Pages/Login";
 function App() {
-  const user = "carlos";
+  const user = null;
   const classes = useStyles();
   return (
     <div className={classes.root}>
