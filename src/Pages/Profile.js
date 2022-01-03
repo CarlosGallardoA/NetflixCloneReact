@@ -4,8 +4,16 @@ import Header from "../components/Header";
 import Plans from "../components/Plans";
 import user1 from "../images/user1.png";
 import { NetflixButton } from "../styled/styledcomponents";
+import { auth } from "../firebase";
+import { signOut } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 const Profile = () => {
   const classes = useStyles();
+  const navigate = useNavigate();
+  const signOutBtn = () => {
+    signOut(auth);
+    navigate("/login");
+  };
   return (
     <div className={classes.root}>
       <Header />
@@ -23,7 +31,9 @@ const Profile = () => {
             <Plans wide="medium" color="gray" cost={44.99}>
               Netflix Premium
             </Plans>
-            <NetflixButton wide="fullWidth">Sign Out</NetflixButton>
+            <NetflixButton wide="fullWidth" onClick={signOutBtn}>
+              Sign Out
+            </NetflixButton>
           </div>
         </div>
       </div>

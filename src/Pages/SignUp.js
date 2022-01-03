@@ -6,15 +6,17 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { auth } from "../firebase";
+import { useNavigate } from "react-router-dom";
 const SignUp = () => {
   const classes = useStyles();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
   const register = async (e) => {
     e.preventDefault();
     try {
       const user = await createUserWithEmailAndPassword(auth, email, password);
-      console.log(user);
+      navigate("/");
     } catch (error) {
       console.log(error);
     }
@@ -24,7 +26,7 @@ const SignUp = () => {
     e.preventDefault();
     try {
       const user = await signInWithEmailAndPassword(auth, email, password);
-      console.log(user);
+      navigate("/");
     } catch (error) {
       console.log(error);
     }
