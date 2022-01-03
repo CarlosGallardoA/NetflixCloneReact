@@ -1,8 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { AppBar, Avatar, makeStyles, Toolbar } from "@material-ui/core";
+import {
+  AppBar,
+  Avatar,
+  IconButton,
+  makeStyles,
+  Toolbar,
+} from "@material-ui/core";
 import logo from "../images/netflix-logo.png";
+import { useNavigate } from "react-router-dom";
 const Header = () => {
   const classes = useStyles();
+  const navigate = useNavigate();
   const [show, setShow] = useState(false);
   const hideHeader = () => {
     if (window.scrollY > 100) {
@@ -13,6 +21,7 @@ const Header = () => {
   };
   useEffect(() => {
     window.addEventListener("scroll", hideHeader);
+    return () => window.removeEventListener("scroll", hideHeader);
   }, []);
   return (
     <AppBar
@@ -21,8 +30,14 @@ const Header = () => {
       className={`${classes.root} ${show && classes.transparent}`}
     >
       <Toolbar className={classes.toolbar}>
-        <img src={logo} alt="logo" className={classes.logo} />
-        <Avatar variant="square" style={{ cursor: "pointer" }} />
+        <IconButton onClick={() => navigate("/")}>
+          <img src={logo} alt="logo" className={classes.logo} />
+        </IconButton>
+        <Avatar
+          variant="square"
+          style={{ cursor: "pointer" }}
+          onClick={() => navigate("/profile")}
+        />
       </Toolbar>
     </AppBar>
   );
