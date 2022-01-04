@@ -1,16 +1,33 @@
 import { Button, makeStyles, Typography } from "@material-ui/core";
-import React from "react";
-import banner from "../images/home-bg.jpg";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import request from "../Request";
 const Banner = () => {
   const classes = useStyles();
+  const [movies, setMovies] = useState([]);
+  const baseURL = `https://image.tmdb.org/t/p/original/`;
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await axios.get(request.fetchTV);
+      const random = Math.floor(Math.random() * result.data.results.length - 1);
+      setMovies(result.data.results[random]);
+      return result;
+    };
+    fetchData();
+  }, []);
   const truncate = (str, n) => {
     return str?.length > n ? str.substr(0, n - 1) + "..." : str;
   };
   return (
-    <div className={classes.root}>
+    <div
+      className={classes.root}
+      style={{
+        backgroundImage: `url(${baseURL}${movies?.backdrop_path})`,
+      }}
+    >
       <div className={classes.content}>
         <Typography variant="h2" component="h1">
-          Movie Title
+          {movies?.title || movies?.name || movies?.original_name}
         </Typography>
         <div className={classes.buttons}>
           <Button>Play</Button>
@@ -21,7 +38,7 @@ const Banner = () => {
           variant="h6"
           className={classes.description}
         >
-          {truncate("Movie description", 150)}
+          {truncate(`${movies?.overview}`, 160)}
         </Typography>
         <div className={classes.fadeBottom}></div>
       </div>
@@ -30,7 +47,6 @@ const Banner = () => {
 };
 const useStyles = makeStyles((theme) => ({
   root: {
-    backgroundImage: `url(${banner})`,
     position: "relative",
     height: "440px",
     objectFit: "contain",
@@ -62,6 +78,18 @@ const useStyles = makeStyles((theme) => ({
     zIndex: 99,
     backgroundImage:
       "linear-gradient(180deg, transparent, rgba(37,37,37,0.61),#111)",
+  },
+  description: {
+    marginTop: theme.spacing(5),
+    width: "45rem",
+    lineHeight: "1.3",
+    maxWidth: "380px",
+    height: "80px",
+  },
+  content: {
+    position: "absolute",
+    top: "105px",
+    left: "45px",
   },
 }));
 export default Banner;
