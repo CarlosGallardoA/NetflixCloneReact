@@ -1,4 +1,4 @@
-### Previa
+### Preview
 
 [![netflix.png](https://i.postimg.cc/QMXNTJmJ/netflix.png)](https://postimg.cc/68mNsRD8)
 
